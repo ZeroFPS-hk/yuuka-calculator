@@ -1,0 +1,34 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    box-sizing: border-box;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    margin: 0;
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    background-color: darkblue;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.displayContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    padding: 10px;
+}
+
+.rowContainer{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
