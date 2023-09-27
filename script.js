@@ -6,46 +6,114 @@ const equalButton = document.querySelector("#execute");
 const inputDisplay = document.querySelector("#inputDisplay");
 const resultDisplay = document.querySelector("#resultDisplay");
 
-//index 0 stores first number, index 1 stores operator, index 2 stores second number.
-//The reason it's implemented like this is so that it's easier to make the backspace function.
 let inputArray = ["", "", ""];
-//should always be 0 or 2, except during backspace on operand
-let currentInputIndex = 0;
+const INPUT_INDEX_FIRST_NUMBER = 0;
+const INPUT_INDEX_OPERATOR = 1;
+const INPUT_INDEX_SECOND_NUMBER = 2;
+let currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
 let result = 0;
 let hasDecimalPoint = false;
 
 for(const button of numberButtons){
-    button.addEventListener("click", e => insertNumber(e.target.value));
+    button.addEventListener("click", e => insertNumber(e.target.textContent));
 }
 for(const button of operatorButtons){
-    button.addEventListener("click", e => insertOperator(e.target.value));
+    button.addEventListener("click", e => insertOperator(e.target.textContent));
 }
 backspaceButton.addEventListener("click", clearLast);
 allClearButton.addEventListener("click", clearAll);
-equalButton.addEventListener("click", calculateResult);
+equalButton.addEventListener("click", ()=> calculateResult());
 
 
 
 function insertNumber(number){
+    if(number === "."){
+        if(hasDecimalPoint){
+            return;
+        }else{
+            hasDecimalPoint = true;
+        }
+    }
+    if(checkAfterCalculation()) inputArray = ["", "", ""];
 
+    inputArray[currentInputIndex] = inputArray[currentInputIndex].concat(number);
+    updateDisplay();
 }
 
-function insertOperator(operand){
+function insertOperator(operator){
+    if(!inputArray[currentInputIndex] && operator === "-") insertNumber("-");
+    if(checkIllegalNumber()) return;
+    if(currentInputIndex === INPUT_INDEX_SECOND_NUMBER){
+        calculateResult(operator);
+        return;
+    }
+    if(checkAfterCalculation()) inputArray = [result, "", ""];
 
+    inputArray[INPUT_INDEX_OPERATOR] = operator;
+    currentInputIndex = INPUT_INDEX_SECOND_NUMBER;
+    hasDecimalPoint = false;
+    updateDisplay();
 }
 
-function calculateResult(nextOperand = false){
+function calculateResult(nextOperator = false){
+    if(checkIllegalNumber()) return;
+    const numberA = Number(inputArray[INPUT_INDEX_FIRST_NUMBER]);
+    const numberB = Number(inputArray[INPUT_INDEX_SECOND_NUMBER]);
+    switch(inputArray[INPUT_INDEX_OPERATOR]){
+        case "+":
+            result = numberA + numberB;
+            break;
+        case "-":
+            result = numberA - numberB;
+            break;
+        case "x":
+            result = numberA * numberB;
+            break;
+        case "/":
+            if(numberB === 0) return;
+            result = numberA / numberB;
+            break;
+        case "":
+            result = numberA;
+            break;
+        default:
+            console.log("Error on calculateResult: missing operator");
+    }
 
+    hasDecimalPoint = false;
+    if(nextOperator) inputArray = [result, nextOperator, ""];
+    currentInputIndex = nextOperator? INPUT_INDEX_SECOND_NUMBER : INPUT_INDEX_FIRST_NUMBER;
+    updateDisplay();
 }
 
 function clearLast(){
+    if(!inputArray[INPUT_INDEX_FIRST_NUMBER]) return;
+    if(checkAfterCalculation()) currentInputIndex = INPUT_INDEX_SECOND_NUMBER;
+    if(!inputArray[currentInputIndex]) currentInputIndex--;
 
+    if(inputArray[currentInputIndex].slice(-1) === ".") hasDecimalPoint = false;
+    inputArray[currentInputIndex] = inputArray[currentInputIndex].slice(0, inputArray[currentInputIndex].length - 1);
+    if(currentInputIndex === INPUT_INDEX_OPERATOR) currentInputIndex--;
+    updateDisplay();
 }
 
 function clearAll(){
-
+    inputArray = ["", "", ""];
+    result = 0;
+    hasDecimalPoint = false;
+    currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
+    updateDisplay();
 }
 
 function updateDisplay(){
+    inputDisplay.textContent = inputArray.join("");
+    resultDisplay.textContent = result;
+}
 
+function checkAfterCalculation(){
+    return currentInputIndex === INPUT_INDEX_FIRST_NUMBER && inputArray[INPUT_INDEX_SECOND_NUMBER];
+}
+
+function checkIllegalNumber(){
+    return !inputArray[currentInputIndex] || inputArray[currentInputIndex] === "-" || inputArray[currentInputIndex] === ".";
 }
