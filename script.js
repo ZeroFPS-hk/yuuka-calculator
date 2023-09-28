@@ -13,7 +13,6 @@ const INPUT_INDEX_OPERATOR = 1;
 const INPUT_INDEX_SECOND_NUMBER = 2;
 let currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
 let result = 0;
-let hasDecimalPoint = false;
 
 for(const button of numberButtons){
     button.addEventListener("click", e => insertNumber(e.target.textContent));
@@ -29,14 +28,7 @@ equalButton.addEventListener("click", ()=> calculateResult());
 
 function insertNumber(number){
     if(checkAfterCalculation()) inputArray = ["", "", ""];
-    if(!inputArray[currentInputIndex]) hasDecimalPoint = false;
-    if(number === "."){
-        if(hasDecimalPoint){
-            return;
-        }else{
-            hasDecimalPoint = true;
-        }
-    }
+    if(inputArray[currentInputIndex].includes(".") && number === ".") return;
 
     inputArray[currentInputIndex] = inputArray[currentInputIndex].concat(number);
     updateDisplay();
@@ -49,7 +41,7 @@ function insertOperator(operator){
         calculateResult(operator);
         return;
     }
-    if(checkAfterCalculation()) inputArray = [result, "", ""];
+    if(checkAfterCalculation()) inputArray = [result.toString(), "", ""];
 
     inputArray[INPUT_INDEX_OPERATOR] = operator;
     currentInputIndex = INPUT_INDEX_SECOND_NUMBER;
@@ -78,10 +70,10 @@ function calculateResult(nextOperator = false){
             result = numberA;
             break;
         default:
-            console.log("Error on calculateResult: missing operator");
+            console.log(`Error on calculateResult: unrecognized operator "${inputArray[INPUT_INDEX_OPERATOR]}".`);
     }
 
-    if(nextOperator) inputArray = [result, nextOperator, ""];
+    if(nextOperator) inputArray = [result.toString(), nextOperator, ""];
     currentInputIndex = nextOperator? INPUT_INDEX_SECOND_NUMBER : INPUT_INDEX_FIRST_NUMBER;
     updateDisplay();
 }
@@ -91,7 +83,6 @@ function clearLast(){
     if(checkAfterCalculation()) currentInputIndex = INPUT_INDEX_SECOND_NUMBER;
     if(!inputArray[currentInputIndex]) currentInputIndex--;
 
-    if(inputArray[currentInputIndex].slice(-1) === ".") hasDecimalPoint = false;
     inputArray[currentInputIndex] = inputArray[currentInputIndex].slice(0, inputArray[currentInputIndex].length - 1);
     if(currentInputIndex === INPUT_INDEX_OPERATOR) currentInputIndex--;
     updateDisplay();
@@ -100,7 +91,6 @@ function clearLast(){
 function clearAll(){
     inputArray = ["", "", ""];
     result = 0;
-    hasDecimalPoint = false;
     currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
     updateDisplay();
 }
