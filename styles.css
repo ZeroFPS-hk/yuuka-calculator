@@ -1,4 +1,5 @@
 body{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,4 +40,9 @@ button{
     display: flex;
     justify-content: flex-end;
     margin: 10px 0;
+}
+
+#characterImage{
+    max-width: 300px;
+    height: auto;
 }
