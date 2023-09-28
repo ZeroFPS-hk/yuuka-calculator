@@ -6,6 +6,7 @@ const equalButton = document.querySelector("#execute");
 const inputDisplay = document.querySelector("#inputDisplay");
 const resultDisplay = document.querySelector("#resultDisplay");
 
+//The reason inputs are stored like this is to have an easier backspace function.
 let inputArray = ["", "", ""];
 const INPUT_INDEX_FIRST_NUMBER = 0;
 const INPUT_INDEX_OPERATOR = 1;
@@ -27,6 +28,8 @@ equalButton.addEventListener("click", ()=> calculateResult());
 
 
 function insertNumber(number){
+    if(checkAfterCalculation()) inputArray = ["", "", ""];
+    if(!inputArray[currentInputIndex]) hasDecimalPoint = false;
     if(number === "."){
         if(hasDecimalPoint){
             return;
@@ -34,7 +37,6 @@ function insertNumber(number){
             hasDecimalPoint = true;
         }
     }
-    if(checkAfterCalculation()) inputArray = ["", "", ""];
 
     inputArray[currentInputIndex] = inputArray[currentInputIndex].concat(number);
     updateDisplay();
@@ -51,7 +53,6 @@ function insertOperator(operator){
 
     inputArray[INPUT_INDEX_OPERATOR] = operator;
     currentInputIndex = INPUT_INDEX_SECOND_NUMBER;
-    hasDecimalPoint = false;
     updateDisplay();
 }
 
@@ -80,7 +81,6 @@ function calculateResult(nextOperator = false){
             console.log("Error on calculateResult: missing operator");
     }
 
-    hasDecimalPoint = false;
     if(nextOperator) inputArray = [result, nextOperator, ""];
     currentInputIndex = nextOperator? INPUT_INDEX_SECOND_NUMBER : INPUT_INDEX_FIRST_NUMBER;
     updateDisplay();

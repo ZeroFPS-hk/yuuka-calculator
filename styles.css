@@ -27,6 +27,14 @@ button{
     padding: 10px;
 }
 
+#inputDisplay{
+    min-height: 18.5px;
+}
+
+#resultDisplay{
+    text-align: right;
+}
+
 .rowContainer{
     display: flex;
     justify-content: flex-end;
