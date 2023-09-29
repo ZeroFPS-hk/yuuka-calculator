@@ -3,14 +3,40 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px 0;
+    gap: 15px;
+    background-color: lavender;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
 }
 
 button{
     box-sizing: border-box;
-    width: 50px;
-    height: 30px;
+    width: 60px;
+    height: 40px;
+    border-radius: 5px;
     text-align: center;
     margin: 0;
+    font-size: 30px;
+}
+
+.verticalContainer{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-family: 'G2 Sans Serif', Visage, Anton, Impact, sans-serif;
+    font-size: 44px;
+    color: purple;
+    margin: 16px 0;
+}
+
+.content{
+    font-size: 32px;
+    color: blue;
 }
 
 .calculator{
@@ -19,6 +45,13 @@ button{
     background-color: darkblue;
     padding: 20px;
     border-radius: 10px;
+    margin: 20px 0;
+}
+
+.logo{
+    align-self: center;
+    width: 50px;
+    height: auto;
 }
 
 .displayContainer{
@@ -29,17 +62,50 @@ button{
 }
 
 #inputDisplay{
-    min-height: 18.5px;
+    min-height: 36.5px;
+    font-size: 30px;
 }
 
 #resultDisplay{
     text-align: right;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .rowContainer{
     display: flex;
     justify-content: flex-end;
-    margin: 10px 0;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+#backspace{
+    background-color: yellow;
+}
+
+#allClear{
+    background-color: red;
+    color: white;
+}
+
+.operator{
+    background-color: darkslategrey;
+    color: white;
+}
+
+#execute{
+    background-color: lime;
+    color: darkgreen;
+}
+
+#message{
+    font-size: 24px;
+    color: red;
+}
+
+.characterContainer{
+    flex: 1;
+    margin: 30px 20px;
 }
 
 #characterImage{

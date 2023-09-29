@@ -6,6 +6,7 @@ const equalButton = document.querySelector("#execute");
 const inputDisplay = document.querySelector("#inputDisplay");
 const resultDisplay = document.querySelector("#resultDisplay");
 const characterImage = document.querySelector("#characterImage");
+const message = document.querySelector("#message");
 
 //The reason inputs are stored like this is to have an easier backspace function.
 let inputArray = ["", "", ""];
@@ -72,7 +73,7 @@ function calculateResult(nextOperator = false){
             break;
         case "/":
             if(numberB === 0){
-                console.log("If you can read this, you tried to divide by 0. Big no-no.");
+                message.textContent = "If you can read this, you tried to divide by 0. Big no-no.";
                 updateCharacter("Disappointed");
                 return;
             }
@@ -85,9 +86,11 @@ function calculateResult(nextOperator = false){
             console.log(`Error on calculateResult: unrecognized operator "${inputArray[INPUT_INDEX_OPERATOR]}".`);
     }
 
+    result = Math.round(result * 10000) / 10000; //rounds to 4 decimal places otherwise calculator gets fat
     result = result.toString();
     if(nextOperator) inputArray = [result, nextOperator, ""];
     currentInputIndex = nextOperator? INPUT_INDEX_SECOND_NUMBER : INPUT_INDEX_FIRST_NUMBER;
+    message.textContent = "";
     updateDisplay();
     checkEasterEgg(nextOperator);
 }
@@ -106,6 +109,7 @@ function clearAll(){
     inputArray = ["", "", ""];
     result = 0;
     currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
+    message.textContent = "";
     updateDisplay();
     updateImage("Default");
 }

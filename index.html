@@ -8,50 +8,58 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="calculator">
-        <div class="displayContainer">
-            <div id="inputDisplay"></div>
-            <div id="resultDisplay">0</div>
-        </div>
+    <div class="verticalContainer">
+        <div class="title">Seminar(TM) powered calculator</div>
+        <div class="content">Get calculating.</div>
 
-        <div class="numberPadContainer">
-            <div class="rowContainer">
-                <button class="action" id="backspace">C</button>
-                <button class="action" id="allClear">AC</button>
+        <div class="calculator">
+            <img class="logo" src="./images/milleniumLogo.png">
+            <div class="displayContainer">
+                <div id="inputDisplay"></div>
+                <div id="resultDisplay">0</div>
             </div>
 
-            <div class="rowContainer">
-                <button class="number" id="number1">1</button>
-                <button class="number" id="number2">2</button>
-                <button class="number" id="number3">3</button>
-                <button class="operator" id="plus">+</button>
-            </div>
+            <div class="numberPadContainer">
+                <div class="rowContainer">
+                    <button class="action" id="backspace">C</button>
+                    <button class="action" id="allClear">AC</button>
+                </div>
 
-            <div class="rowContainer">
-                <button class="number" id="number4">4</button>
-                <button class="number" id="number5">5</button>
-                <button class="number" id="number6">6</button>
-                <button class="operator" id="minus">-</button>
-            </div>
+                <div class="rowContainer">
+                    <button class="number" id="number1">1</button>
+                    <button class="number" id="number2">2</button>
+                    <button class="number" id="number3">3</button>
+                    <button class="operator" id="plus">+</button>
+                </div>
 
-            <div class="rowContainer">
-                <button class="number" id="number7">7</button>
-                <button class="number" id="number8">8</button>
-                <button class="number" id="number9">9</button>
-                <button class="operator" id="multiply">x</button>
-            </div>
+                <div class="rowContainer">
+                    <button class="number" id="number4">4</button>
+                    <button class="number" id="number5">5</button>
+                    <button class="number" id="number6">6</button>
+                    <button class="operator" id="minus">-</button>
+                </div>
+
+                <div class="rowContainer">
+                    <button class="number" id="number7">7</button>
+                    <button class="number" id="number8">8</button>
+                    <button class="number" id="number9">9</button>
+                    <button class="operator" id="multiply">x</button>
+                </div>
             
-            <div class="rowContainer">
-                <button class="number" id="decimalPoint">.</button>
-                <button class="number" id="number0">0</button>
-                <button class="action" id="execute">=</button>
-                <button class="operator" id="divide">/</button>
+                <div class="rowContainer">
+                    <button class="number" id="decimalPoint">.</button>
+                    <button class="number" id="number0">0</button>
+                    <button class="action" id="execute">=</button>
+                    <button class="operator" id="divide">/</button>
+                </div>
             </div>
         </div>
-    </div> 
+
+        <div id="message"></div>
+    </div>
 
     <div class="characterContainer">
-        <img id="characterImage" src="./images/yuukaDefault.png">
+        <img id="characterImage" src="./images/yuukaDefault.png" alt="If you can read this, either your internet sucks or something broke.">
     </div>
 </body>
 </html>
