@@ -16,6 +16,7 @@ const INPUT_INDEX_SECOND_NUMBER = 2;
 let currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
 let result = "0";
 let currentCharacter = "yuuka"; //futureproofing in case I want to do something here
+let audio = new Audio();
 
 for(const button of numberButtons){
     button.addEventListener("click", e => insertNumber(e.target.textContent));
@@ -139,7 +140,9 @@ function updateImage(expression){
 }
 
 function playSound(expression){
-    const audio = new Audio(`./sounds/${currentCharacter}${expression}.ogg`);
+    audio.pause();
+    audio.currentTime = 0;
+    audio = new Audio(`./sounds/${currentCharacter}${expression}.ogg`);
     audio.play();
 }
 
