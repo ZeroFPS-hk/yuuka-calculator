@@ -42,8 +42,14 @@ function insertNumber(number){
 }
 
 function insertOperator(operator){
-    if(!inputArray[currentInputIndex] && operator === "-") insertNumber("-");
-    if(checkIllegalNumber()) return;
+    if(!inputArray[currentInputIndex] && operator === "-"){
+        insertNumber("-");
+        return;
+    }
+    if(checkIllegalNumber()){
+        updateCharacter("Error");
+        return;
+    }
     if(currentInputIndex === INPUT_INDEX_SECOND_NUMBER){
         calculateResult(operator);
         return;
