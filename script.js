@@ -16,7 +16,7 @@ const INPUT_INDEX_SECOND_NUMBER = 2;
 let currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
 let result = "0";
 let currentCharacter = "yuuka"; //futureproofing in case I want to do something here
-let audio = new Audio();
+let characterVoice = new Audio();
 
 for(const button of numberButtons){
     button.addEventListener("click", e => insertNumber(e.target.textContent));
@@ -108,7 +108,7 @@ function clearLast(){
 
 function clearAll(){
     inputArray = ["", "", ""];
-    result = 0;
+    result = "0";
     currentInputIndex = INPUT_INDEX_FIRST_NUMBER;
     message.textContent = "";
     updateDisplay();
@@ -125,7 +125,7 @@ function checkAfterCalculation(){
 }
 
 function checkIllegalNumber(){
-    return !inputArray[currentInputIndex] || inputArray[currentInputIndex] === "-" || inputArray[currentInputIndex] === ".";
+    return !inputArray[currentInputIndex] || inputArray[currentInputIndex] === "-" || inputArray[currentInputIndex] === "." || inputArray[currentInputIndex] === "-.";
 }
 
 function updateCharacter(expression){
@@ -140,10 +140,10 @@ function updateImage(expression){
 }
 
 function playSound(expression){
-    audio.pause();
-    audio.currentTime = 0;
-    audio = new Audio(`./sounds/${currentCharacter}${expression}.ogg`);
-    audio.play();
+    characterVoice.pause();
+    characterVoice.currentTime = 0;
+    characterVoice = new Audio(`./sounds/${currentCharacter}${expression}.ogg`);
+    characterVoice.play();
 }
 
 function checkEasterEgg(nextOperator = true){
