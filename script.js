@@ -169,13 +169,13 @@ function handleKeyPress(event) {
     event.preventDefault(); // otherwise enter will press the highlighted calculator button
     const key = event.key;
     if (isNumberKey(key) || isDecimalPointKey(key)) {
-        handleNumberOrDecimalKey(key);
+        insertNumber(key);
     } else if (isOperatorKey(key)) {
         handleOperatorKey(key);
     } else if (isEnterKey(key)) {
-        handleEqualKey();
+        calculateResult();
     } else if (isBackspaceKey(key)) {
-        handleBackspaceKey();
+        clearLast();
     }
 }
 
@@ -199,22 +199,10 @@ function isBackspaceKey(key) {
     return key === 'Backspace';
 }
 
-function handleNumberOrDecimalKey(key) {
-    insertNumber(key);
-}
-
 function handleOperatorKey(key) {
     let operator = key;
     if (key === '*' || key.toLowerCase() === 'x') {
         operator = 'x';
     }
     insertOperator(operator);
-}
-
-function handleEqualKey() {
-    calculateResult();
-}
-
-function handleBackspaceKey() {
-    clearLast();
 }
