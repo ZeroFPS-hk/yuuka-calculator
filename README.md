@@ -9,3 +9,5 @@ Images and sounds @ Nexon Korea.
 
 Weebspeak:
 Have fun and do your thing lol
+
+Update 12/07/2024: Added keyboard input, courtesy of chatgpt.

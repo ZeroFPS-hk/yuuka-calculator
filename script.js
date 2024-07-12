@@ -27,6 +27,7 @@ for(const button of operatorButtons){
 backspaceButton.addEventListener("click", clearLast);
 allClearButton.addEventListener("click", clearAll);
 equalButton.addEventListener("click", ()=> calculateResult());
+document.addEventListener('keydown', handleKeyPress);
 
 
 
@@ -134,6 +135,8 @@ function checkIllegalNumber(){
     return !inputArray[currentInputIndex] || inputArray[currentInputIndex] === "-" || inputArray[currentInputIndex] === "." || inputArray[currentInputIndex] === "-.";
 }
 
+// character handling
+
 function updateCharacter(expression){
     currentCharacter = currentCharacter.slice(0,1).toLowerCase() + currentCharacter.slice(1);
     expression = expression.slice(0,1).toUpperCase() + expression.slice(1);
@@ -160,3 +163,58 @@ function checkEasterEgg(nextOperator = true){
     else if(!nextOperator) updateCharacter("Happy");
 }
 
+// keyboard input handling. This part is made by chatgpt.
+
+function handleKeyPress(event) {
+    event.preventDefault(); // otherwise enter will press the highlighted calculator button
+    const key = event.key;
+    if (isNumberKey(key) || isDecimalPointKey(key)) {
+        handleNumberOrDecimalKey(key);
+    } else if (isOperatorKey(key)) {
+        handleOperatorKey(key);
+    } else if (isEnterKey(key)) {
+        handleEqualKey();
+    } else if (isBackspaceKey(key)) {
+        handleBackspaceKey();
+    }
+}
+
+function isNumberKey(key) {
+    return key >= '0' && key <= '9';
+}
+
+function isDecimalPointKey(key) {
+    return key === '.';
+}
+
+function isOperatorKey(key) {
+    return ['+', '-', '*', '/', 'x', 'X'].includes(key);
+}
+
+function isEnterKey(key) {
+    return key === 'Enter' || key === '=';
+}
+
+function isBackspaceKey(key) {
+    return key === 'Backspace';
+}
+
+function handleNumberOrDecimalKey(key) {
+    insertNumber(key);
+}
+
+function handleOperatorKey(key) {
+    let operator = key;
+    if (key === '*' || key.toLowerCase() === 'x') {
+        operator = 'x';
+    }
+    insertOperator(operator);
+}
+
+function handleEqualKey() {
+    calculateResult();
+}
+
+function handleBackspaceKey() {
+    clearLast();
+}
